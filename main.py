@@ -69,12 +69,12 @@ def main():
 
         **Classification:**
         The denoised image is classified using a ResNet-50 model trained on the ImageNet dataset.
-        But **Please upload images within the classes of animals and clothes. Otherwise the dataset may be out of ranges.**
+        **But Please upload images within the classes of animals and clothes. Otherwise the dataset may be out of ranges.**
 
         **How to Use:**
         1. Upload an image.
-        2. Select a denoising method.
-        3. View the denoised image and classification results.
+        2. Select a denoising method or choose 'None' for no filtering.
+        3. View the denoised image (or original if no filtering) and classification results.
         """)
         
     elif choice == "Filter & Classify":
@@ -90,22 +90,27 @@ def main():
             filter_method = st.selectbox('Choose a filtering method:', 
                                         ['None', 'Gaussian Blur', 'Median Filter', 'Bilateral Filter'])
             
-            if filter_method != 'None':
-                # Filter the image
+            if filter_method == 'None':
+                # If no filtering is selected, use the original image
+                filtered_image = image
+            else:
+                # Apply the selected filtering method
                 filtered_image = filter_image(image, filter_method)
-                st.image(filtered_image, caption=f'Filtered Image ({filter_method})', use_column_width=True)
+            
+            # Display the filtered image
+            st.image(filtered_image, caption=f'Filtered Image ({filter_method})' if filter_method != 'None' else 'Original Image', use_column_width=True)
                 
-                # Classify the filtered image
-                class_id = classify_image(filtered_image)
-                
-                # Retrieve class names from the URL
-                class_names = get_class_names()
-                
-                # Ensure class_id is within the valid range
-                if class_id < len(class_names):
-                    st.write(f'Class Name: {class_names[class_id]}')
-                else:
-                    st.write('Class Name: Unknown (ID out of range)')
+            # Classify the filtered image
+            class_id = classify_image(filtered_image)
+            
+            # Retrieve class names from the URL
+            class_names = get_class_names()
+            
+            # Ensure class_id is within the valid range
+            if class_id < len(class_names):
+                st.write(f'Class Name: {class_names[class_id]}')
+            else:
+                st.write('Class Name: Unknown (ID out of range)')
 
 if __name__ == "__main__":
     main()
