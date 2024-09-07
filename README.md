@@ -31,16 +31,16 @@ pip install torch torchvision numpy matplotlib scikit-learn
 
 ## Clone the Repository:
 
-### To get started, clone the repository to your local machine:
+To get started, clone the repository to your local machine:
 
 ```bash
 git clone https://github.com/NanGyeThote/PictoNet.git
 cd PictoNet
 ```
 
-# Prepare Your Dataset
+## Prepare Your Dataset
 
-## Ensure your dataset is organized in the following structure:
+### Ensure your dataset is organized in the following structure:
 
 ```bash
 data/
@@ -53,11 +53,11 @@ data/
         dog/img2.jpg
         horse/img2.jpg
 ```
-# Run the Filtering and Classification Script
+## Run the Filtering and Classification Script
 
-## Execute the following command to run the filtering and classification script:
+### Execute the following command to run the filtering and classification script:
 
 ```bash
 python main.py
 ```
-## Make sure to update the dataset paths and any configuration settings as needed in the config.py file before running the script.
+Make sure to update the dataset paths and any configuration settings as needed in the config.py file before running the script.
