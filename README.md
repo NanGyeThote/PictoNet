@@ -6,7 +6,7 @@ This project implements an image classification pipeline using the ResNet-50 arc
 
 ## Features
 
-- **Image Filtering:** Preprocessing with techniques such as Gaussian filtering and image denoising.
+- **Image Filtering:** Preprocessing with techniques such as Gaussian Filtering, Median Filtering, Bilateral Filtering and image denoising.
 - **Transfer Learning:** Fine-tuning a pre-trained ResNet-50 model on a custom dataset.
 - **Model Training:** Training the model with custom data and evaluating its performance.
 - **Evaluation Metrics:** Accuracy, precision, recall, and F1 score.
