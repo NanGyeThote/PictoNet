@@ -69,7 +69,7 @@ def main():
 
         **Classification:**
         The denoised image is classified using a ResNet-50 model trained on the ImageNet dataset.
-        But Please upload images within the classes of animals and clothes. Otherwise the dataset may be out of ranges.
+        But **Please upload images within the classes of animals and clothes. Otherwise the dataset may be out of ranges.**
 
         **How to Use:**
         1. Upload an image.
