@@ -40,7 +40,7 @@ cd PictoNet
 
 ## Prepare Your Dataset
 
-### Ensure your dataset is organized in the following structure:
+Ensure your dataset is organized in the following structure:
 
 ```bash
 data/
