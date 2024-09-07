@@ -74,8 +74,6 @@ def main():
         1. Upload an image.
         2. Select a denoising method.
         3. View the denoised image and classification results.
-        4. Download the denoised image if needed.
-        5. Use the Reset button to start over with a new image.
         """)
         
     elif choice == "Filter & Classify":
@@ -107,21 +105,6 @@ def main():
                     st.write(f'Class Name: {class_names[class_id]}')
                 else:
                     st.write('Class Name: Unknown (ID out of range)')
-                
-                # Allow users to download the filtered image
-                buffer = io.BytesIO()
-                filtered_image.save(buffer, format="JPEG")
-                buffer.seek(0)
-                st.download_button(
-                    label="Download Filtered Image",
-                    data=buffer,
-                    file_name="filtered_image.jpg",
-                    mime="image/jpeg"
-                )
-                
-                # Reset button
-                if st.button('Reset'):
-                    st.experimental_rerun()  # Rerun the app to clear state
 
 if __name__ == "__main__":
     main()
