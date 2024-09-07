@@ -1,4 +1,4 @@
-# Image Filtering and Classification with ResNet-50 and Transfer Learning :rocket: 🚀
+# Image Filtering and Classification with ResNet-50 and Transfer Learning 🚀
 
 ## Project Overview
 
@@ -196,7 +196,7 @@ if __name__ == "__main__":
     main()
 ```
 
-## License
+## License :white_check_mark:
 
 This project is licensed under the MIT License - see the LICENSE file for details.
 
