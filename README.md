@@ -1,4 +1,4 @@
-# Image Filtering and Classification with ResNet-50 and Transfer Learning
+# Image Filtering and Classification with ResNet-50 and Transfer Learning :rocket: 🚀
 
 ## Project Overview
 
