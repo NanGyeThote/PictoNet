@@ -65,13 +65,15 @@ Make sure to update the dataset paths and any configuration settings as needed i
 ## Usage
 1. **Filtering Images**:
 
-The filtering script applies techniques like Gaussian filtering and denoising.
-The filtered images are saved to a specified directory.
-Training the Model:
+* The filtering script applies techniques like Gaussian filtering and denoising.
+* The filtered images are saved to a specified directory.
 
-The training script uses transfer learning with a pre-trained ResNet-50 model.
-Modify the hyperparameters and paths as needed in the config.py file.
-Evaluating the Model:
+2. **Training the Model**:
 
-After training, the model is evaluated on the validation set.
-Evaluation metrics (accuracy, precision, recall, F1 score) are reported.
+* The training script uses transfer learning with a pre-trained ResNet-50 model.
+* Modify the hyperparameters and paths as needed in the config.py file.
+
+3. **Evaluating the Model**:
+
+* After training, the model is evaluated on the validation set.
+* Evaluation metrics (accuracy, precision, recall, F1 score) are reported.
