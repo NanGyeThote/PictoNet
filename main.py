@@ -27,8 +27,8 @@ def denoise_median(image):
 
 # Placeholder for bilateral filter (Pillow doesn’t support this directly)
 def denoise_bilateral(image):
-    # You might need to find an alternative approach or library
-    return image.filter(ImageFilter.GaussianBlur(radius=5))  # Example: Gaussian blur as a placeholder
+    # Use Gaussian blur as a placeholder
+    return image.filter(ImageFilter.GaussianBlur(radius=5))
 
 # Function to classify image
 def classify_image(image, class_labels):
