@@ -28,6 +28,7 @@ pip install torch torchvision numpy matplotlib scikit-learn
 ```
 
 # Setup and Installation
+
 ## Clone the Repository:
 
 To get started, clone the repository to your local machine:
@@ -36,7 +37,6 @@ To get started, clone the repository to your local machine:
 git clone https://github.com/NanGyeThote/PictoNet.git
 cd PictoNet
 ```
-
 
 ## Prepare Your Dataset
 
@@ -55,6 +55,7 @@ data/
 ```
 
 ## Run the Filtering and Classification Script
+
 Execute the following command to run the filtering and classification script:
 
 ```bash
@@ -62,8 +63,8 @@ python main.py
 ```
 Make sure to update the dataset paths and any configuration settings as needed in the config.py file before running the script.
 
-
 ## Usage
+
 1. **Filtering Images**:
 
     * The filtering script applies techniques like Gaussian filtering and denoising.
@@ -204,5 +205,5 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 * ResNet-50 model from PyTorch's torchvision library.
  * Image filtering techniques from various sources.
 
-# Contact
+## Contact
 For any questions or feedback, please contact your-email@example.com.
