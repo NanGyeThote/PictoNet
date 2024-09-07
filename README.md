@@ -198,7 +198,7 @@ if __name__ == "__main__":
 
 ## License :white_check_mark:
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+No License is proceeded at the moment.
 
 ## Acknowledgments
 
