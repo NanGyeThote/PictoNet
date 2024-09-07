@@ -25,26 +25,34 @@ You can install the required packages using:
 ```bash
 pip install torch torchvision numpy matplotlib scikit-learn
 
-Setup and Installation
-Clone the Repository:
+```
 
-bash
-Copy code
+#Setup and Installation
+
+##Clone the Repository:
+
+```bash
 git clone https://github.com/NanGyeThote/PictoNet.git
 cd PictoNet
-Prepare Your Dataset:
+```
 
-Ensure your dataset is organized in the following structure:
+#Prepare Your Dataset:
 
+##Ensure your dataset is organized in the following structure:
+
+```bash
 data/
     train/
-        cat/
-        dog/
-        horse/
+        cat/img1.jpg
+        dog/img1.jpg
+        horse/img1.jpg
     val/
-        cat/
-        dog/
-        horse/
-Run the Filtering and Classification Script:
+        cat/img2.jpg
+        dog/img2.jpg
+        horse/img2.jpg
+```
+#Run the Filtering and Classification Script:
 
+```bash
 python main.py
+```
