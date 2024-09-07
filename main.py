@@ -2,10 +2,9 @@ import streamlit as st
 import numpy as np
 import torch
 from torchvision import models, transforms
-from PIL import Image
-import cv2
+from PIL import Image, ImageFilter
 import requests
-import matplotlib.pyplot as plt
+import io
 
 # Load the pre-trained ResNet model
 model = models.resnet50(pretrained=True)
@@ -19,21 +18,17 @@ preprocess = transforms.Compose([
     transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
 ])
 
-# Define denoising functions
+# Define denoising functions using Pillow
 def denoise_gaussian(image):
-    img_array = np.array(image)
-    img_array = cv2.GaussianBlur(img_array, (5, 5), 0)
-    return Image.fromarray(img_array)
+    return image.filter(ImageFilter.GaussianBlur(radius=5))
 
 def denoise_median(image):
-    img_array = np.array(image)
-    img_array = cv2.medianBlur(img_array, 5)
-    return Image.fromarray(img_array)
+    return image.filter(ImageFilter.MedianFilter(size=5))
 
+# Placeholder for bilateral filter (Pillow doesn’t support this directly)
 def denoise_bilateral(image):
-    img_array = np.array(image)
-    img_array = cv2.bilateralFilter(img_array, 9, 75, 75)
-    return Image.fromarray(img_array)
+    # You might need to find an alternative approach or library
+    return image.filter(ImageFilter.GaussianBlur(radius=5))  # Example: Gaussian blur as a placeholder
 
 # Function to classify image
 def classify_image(image, class_labels):
