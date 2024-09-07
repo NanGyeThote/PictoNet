@@ -1,12 +1,12 @@
 import streamlit as st
 import numpy as np
+from PIL import Image, ImageFilter
 import torch
 from torchvision import models, transforms
-from PIL import Image, ImageFilter
 import requests
 import io
 
-# Load the pre-trained ResNet model
+# Load pre-trained ResNet50 model
 model = models.resnet50(pretrained=True)
 model.eval()
 
@@ -18,91 +18,42 @@ preprocess = transforms.Compose([
     transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
 ])
 
-# Define denoising functions using Pillow
-def denoise_gaussian(image):
-    return image.filter(ImageFilter.GaussianBlur(radius=5))
+def filter_image(image, method):
+    if method == 'Gaussian Blur':
+        filtered_image = image.filter(ImageFilter.GaussianBlur(radius=2))
+    elif method == 'Median Filter':
+        filtered_image = image.filter(ImageFilter.MedianFilter(size=5))
+    elif method == 'Bilateral Filter':
+        # PIL does not support bilateral filtering; use Gaussian Blur as an alternative
+        filtered_image = image.filter(ImageFilter.GaussianBlur(radius=2))
+    else:
+        filtered_image = image
+    
+    return filtered_image
 
-def denoise_median(image):
-    return image.filter(ImageFilter.MedianFilter(size=5))
-
-# Placeholder for bilateral filter (Pillow doesn’t support this directly)
-def denoise_bilateral(image):
-    # Use Gaussian blur as a placeholder
-    return image.filter(ImageFilter.GaussianBlur(radius=5))
-
-# Function to classify image
-def classify_image(image, class_labels):
+def classify_image(image):
     input_tensor = preprocess(image).unsqueeze(0)
     with torch.no_grad():
         output = model(input_tensor)
     _, predicted = torch.max(output, 1)
-    class_id = predicted.item()
-    class_label = class_labels[class_id] if class_id < len(class_labels) else "Unknown"
-    return class_id, class_label
+    return predicted.item()
 
-# Function to download class labels
-def download_class_labels():
+def get_class_names():
     url = 'https://raw.githubusercontent.com/anishathalye/imagenet-simple-labels/master/imagenet-simple-labels.json'
     response = requests.get(url)
-    response.raise_for_status()
+    response.raise_for_status()  # Check if the request was successful
     return response.json()
 
-# Load class labels
-class_labels = download_class_labels()
-
-# Define the main function to handle app logic
 def main():
-    st.title('Image Denoising and Classification')
+    st.title('PictoNet: Image Filtering and Classification')
 
-    # Sidebar for menu
-    st.sidebar.header('Menu')
-    menu = st.sidebar.radio('Select an option:', ['Upload and Process Image', 'About'])
-
-    if menu == 'Upload and Process Image':
-        uploaded_file = st.file_uploader("Choose an image...", type=["jpg", "jpeg", "png"])
-
-        if uploaded_file is not None:
-            image = Image.open(uploaded_file).convert("RGB")
-            
-            # Display the original image
-            st.image(image, caption='Original Image', use_column_width=True)
-
-            # Denoising method selection
-            denoise_method = st.selectbox(
-                'Choose a denoising method',
-                ['Gaussian Blur', 'Median Filtering', 'Bilateral Filtering']
-            )
-            
-            # Apply the selected denoising method
-            if denoise_method == 'Gaussian Blur':
-                denoised_image = denoise_gaussian(image)
-            elif denoise_method == 'Median Filtering':
-                denoised_image = denoise_median(image)
-            elif denoise_method == 'Bilateral Filtering':
-                denoised_image = denoise_bilateral(image)
-            
-            # Display the denoised image
-            st.image(denoised_image, caption='Denoised Image', use_column_width=True)
-            
-            # Classification
-            class_id, class_name = classify_image(denoised_image, class_labels)
-            
-            # Show classification results
-            st.write(f'Predicted class ID: {class_id}')
-            st.write(f'Predicted class name: {class_name}')
-            
-            # Allow users to download the denoised image
-            buffer = io.BytesIO()
-            denoised_image.save(buffer, format="JPEG")
-            buffer.seek(0)
-            st.download_button(
-                label="Download Denoised Image",
-                data=buffer,
-                file_name="denoised_image.jpg",
-                mime="image/jpeg"
-            )
-
-    elif menu == 'About':
+    # Create a menu
+    menu = ["Home", "Filter & Classify"]
+    choice = st.sidebar.selectbox("Select an option", menu)
+    
+    if choice == "Home":
+        st.subheader("Welcome to PictoNet")
+        st.write("Upload an image, select a filtering method, and view the classification results.")
         st.write("""
         # About This App
 
@@ -125,6 +76,36 @@ def main():
         3. View the denoised image and classification results.
         4. Download the denoised image if needed.
         """)
+        
+    elif choice == "Filter & Classify":
+        # Upload image
+        uploaded_file = st.file_uploader("Choose an image...", type=["jpg", "jpeg", "png"])
+
+        if uploaded_file is not None:
+            # Open and display the uploaded image
+            image = Image.open(uploaded_file)
+            st.image(image, caption='Uploaded Image', use_column_width=True)
+            
+            # Select filtering method
+            filter_method = st.selectbox('Choose a filtering method:', 
+                                        ['None', 'Gaussian Blur', 'Median Filter', 'Bilateral Filter'])
+            
+            if filter_method != 'None':
+                # Filter the image
+                filtered_image = filter_image(image, filter_method)
+                st.image(filtered_image, caption=f'Filtered Image ({filter_method})', use_column_width=True)
+                
+                # Classify the filtered image
+                class_id = classify_image(filtered_image)
+                
+                # Retrieve class names from the URL
+                class_names = get_class_names()
+                
+                # Ensure class_id is within the valid range
+                if class_id < len(class_names):
+                    st.write(f'Class Name: {class_names[class_id]}')
+                else:
+                    st.write('Class Name: Unknown (ID out of range)')
 
 if __name__ == "__main__":
     main()
