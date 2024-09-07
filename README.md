@@ -195,10 +195,13 @@ if __name__ == "__main__":
 ```
 
 ## License
+
 This project is licensed under the MIT License - see the LICENSE file for details.
 
 ## Acknowledgments
-    * ResNet-50 model from PyTorch's torchvision library.
+
+* ResNet-50 model from PyTorch's torchvision library.
     * Image filtering techniques from various sources.
+
 # Contact
 For any questions or feedback, please contact your-email@example.com.
