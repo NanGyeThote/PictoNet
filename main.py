@@ -73,8 +73,8 @@ def main():
 
         **How to Use:**
         1. Upload an image.
-        2. Select a denoising method or choose 'None' for no filtering.
-        3. View the denoised image (or original if no filtering) and classification results.
+        2. Select a denoising method or choose 'None' if no filtering is required.
+        3. View the processed image (or original if 'None' is selected) and classification results.
         """)
         
     elif choice == "Filter & Classify":
@@ -91,14 +91,16 @@ def main():
                                         ['None', 'Gaussian Blur', 'Median Filter', 'Bilateral Filter'])
             
             if filter_method == 'None':
-                # If no filtering is selected, use the original image
+                # Use the original image if 'None' is selected
                 filtered_image = image
+                filter_caption = 'Original Image'
             else:
                 # Apply the selected filtering method
                 filtered_image = filter_image(image, filter_method)
+                filter_caption = f'Filtered Image ({filter_method})'
             
             # Display the filtered image
-            st.image(filtered_image, caption=f'Filtered Image ({filter_method})' if filter_method != 'None' else 'Original Image', use_column_width=True)
+            st.image(filtered_image, caption=filter_caption, use_column_width=True)
                 
             # Classify the filtered image
             class_id = classify_image(filtered_image)
