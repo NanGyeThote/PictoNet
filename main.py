@@ -55,7 +55,8 @@ def get_class_names():
     return response.json()
 
 def main():
-    st.title('PictoNet: Image Filtering and Classification :rocket:')
+    st.title('PictoNet: Image Filtering and Classification)
+    st.components.v1.html(rocket_animation_html, height=39)
 
     # Create a menu
     menu = ["Home", "Filter & Classify"]
@@ -102,7 +103,7 @@ def main():
 
                 .rotating-rocket {
                     display: inline-block;
-                    font-size: 50px;
+                    font-size: 10px;
                     animation: rotate 2s linear infinite;
                 }
             </style>
@@ -112,8 +113,7 @@ def main():
         </body>
         </html>
         """
-        st.components.v1.html(rocket_animation_html, height=100)
-
+        
     elif choice == "Filter & Classify":
         # Upload image
         uploaded_file = st.file_uploader("Choose an image...", type=["jpg", "jpeg", "png"])
