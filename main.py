@@ -21,7 +21,12 @@ preprocess = transforms.Compose([
 # Define file size limit (in bytes)
 FILE_SIZE_LIMIT = 200 * 1024 * 1024  # 200 MB
 
+def no_filter(image):
+    """Return the image as is (no filtering)."""
+    return image
+
 def filter_image(image, method):
+    """Apply the selected filter to the image."""
     if method == 'Gaussian Blur':
         filtered_image = image.filter(ImageFilter.GaussianBlur(radius=2))
     elif method == 'Median Filter':
@@ -35,6 +40,7 @@ def filter_image(image, method):
     return filtered_image
 
 def classify_image(image):
+    """Classify the image using a pre-trained ResNet model."""
     input_tensor = preprocess(image).unsqueeze(0)
     with torch.no_grad():
         output = model(input_tensor)
@@ -42,6 +48,7 @@ def classify_image(image):
     return predicted.item()
 
 def get_class_names():
+    """Retrieve class names from the ImageNet labels URL."""
     url = 'https://raw.githubusercontent.com/anishathalye/imagenet-simple-labels/master/imagenet-simple-labels.json'
     response = requests.get(url)
     response.raise_for_status()  # Check if the request was successful
@@ -69,6 +76,7 @@ def main():
         - **Gaussian Blur:** Applies a Gaussian filter to reduce noise.
         - **Median Filtering:** Replaces each pixel with the median of neighboring pixels.
         - **Bilateral Filtering:** (Placeholder) Uses Gaussian blur as a proxy.
+        - **No Filter:** No filtering applied.
 
         **Classification:**
         The denoised image is classified using a ResNet-50 model trained on the ImageNet dataset.
@@ -96,11 +104,18 @@ def main():
                 
                 # Select filtering method
                 filter_method = st.selectbox('Choose a filtering method:', 
-                                            ['None', 'Gaussian Blur', 'Median Filter', 'Bilateral Filter'])
+                                            ['No Filter', 'Gaussian Blur', 'Median Filter', 'Bilateral Filter', 'None'])
                 
-                if filter_method != 'None':
-                    # Filter the image
-                    filtered_image = filter_image(image, filter_method)
+                if filter_method == 'None':
+                    st.write("Please select a valid filtering method to proceed with classification.")
+                else:
+                    # Apply the selected filter or no filter
+                    if filter_method == 'No Filter':
+                        filtered_image = no_filter(image)
+                    else:
+                        filtered_image = filter_image(image, filter_method)
+                    
+                    # Display the filtered image
                     st.image(filtered_image, caption=f'Filtered Image ({filter_method})', use_column_width=True)
                     
                     # Classify the filtered image
