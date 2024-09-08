@@ -88,6 +88,35 @@ def main():
         3. View the denoised image and classification results.
         """)
         
+        # Add JavaScript animation example
+        st.subheader("Animation Example")
+        animation_html = """
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <style>
+                #animated-box {
+                    width: 100px;
+                    height: 100px;
+                    background-color: red;
+                    position: absolute;
+                    animation: move 3s infinite;
+                }
+
+                @keyframes move {
+                    0% { transform: translateX(0); }
+                    50% { transform: translateX(300px); }
+                    100% { transform: translateX(0); }
+                }
+            </style>
+        </head>
+        <body>
+            <div id="animated-box"></div>
+        </body>
+        </html>
+        """
+        st.components.v1.html(animation_html, height=150)
+
     elif choice == "Filter & Classify":
         # Upload image
         uploaded_file = st.file_uploader("Choose an image...", type=["jpg", "jpeg", "png"])
