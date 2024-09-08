@@ -19,7 +19,7 @@ preprocess = transforms.Compose([
 ])
 
 # Define file size limit (in bytes)
-FILE_SIZE_LIMIT = 200 * 1024 * 1024  # 200 MB
+FILE_SIZE_LIMIT = 5 * 1024 * 1024  # 5 MB
 
 def no_filter(image):
     """Return the image as is (no filtering)."""
