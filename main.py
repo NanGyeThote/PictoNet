@@ -83,7 +83,7 @@ def main():
         But **Please upload images within the classes of animals and clothes. Otherwise the dataset may be out of ranges.**
 
         **How to Use:**
-        1. Upload an image.
+        1. Upload an image. ( Not more than 5 MB )
         2. Select a denoising method.
         3. View the denoised image and classification results.
         """)
