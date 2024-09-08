@@ -87,35 +87,32 @@ def main():
         2. Select a denoising method.
         3. View the denoised image and classification results.
         """)
-        
-        # Add JavaScript animation example
-        st.subheader("Animation Example")
-        animation_html = """
+
+        # Add rotating rocket emoji
+        st.subheader("Rotating Rocket Emoji")
+        rocket_animation_html = """
         <!DOCTYPE html>
         <html>
         <head>
             <style>
-                #animated-box {
-                    width: 100px;
-                    height: 100px;
-                    background-color: red;
-                    position: absolute;
-                    animation: move 3s infinite;
+                @keyframes rotate {
+                    0% { transform: rotate(0deg); }
+                    100% { transform: rotate(360deg); }
                 }
 
-                @keyframes move {
-                    0% { transform: translateX(0); }
-                    50% { transform: translateX(300px); }
-                    100% { transform: translateX(0); }
+                .rotating-rocket {
+                    display: inline-block;
+                    font-size: 50px;
+                    animation: rotate 2s linear infinite;
                 }
             </style>
         </head>
         <body>
-            <div id="animated-box"></div>
+            <div class="rotating-rocket">🚀</div>
         </body>
         </html>
         """
-        st.components.v1.html(animation_html, height=150)
+        st.components.v1.html(rocket_animation_html, height=100)
 
     elif choice == "Filter & Classify":
         # Upload image
