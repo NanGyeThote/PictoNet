@@ -104,7 +104,7 @@ def main():
                 
                 # Select filtering method
                 filter_method = st.selectbox('Choose a filtering method:', 
-                                            ['No Filter', 'Gaussian Blur', 'Median Filter', 'Bilateral Filter', 'None'])
+                                            ['None', 'No Filter', 'Gaussian Blur', 'Median Filter', 'Bilateral Filter'])
                 
                 if filter_method == 'None':
                     st.write("Please select a valid filtering method to proceed with classification.")
