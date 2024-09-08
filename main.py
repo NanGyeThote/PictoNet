@@ -55,7 +55,7 @@ def get_class_names():
     return response.json()
 
 def main():
-    st.title('PictoNet: Image Filtering and Classification)
+    st.title('PictoNet: Image Filtering and Classification')
     st.components.v1.html(rocket_animation_html, height=39)
 
     # Create a menu
